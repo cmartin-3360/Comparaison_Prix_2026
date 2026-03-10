@@ -15,8 +15,13 @@ def compare_products(A, B, C):
         return "Produit A < Produit C < Produit B"
     elif C > B > A:
         return "Produit C > Produit B > Produit A"
-    else:
-        return "Ordre non déterminé (peut-être égalités partielles)"
+    elif C == A > B :
+        return " Produit A = Produit C > Produit B"
+    elif C == B > A :
+        return " Produit B = Produit C > Produit A"
+    elif A == B > C :   
+        return " Produit A = Produit B > Produit C" 
+    
 
 print ("Comparaison des prix de trois produits:")
 
