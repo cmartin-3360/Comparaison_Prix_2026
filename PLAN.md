@@ -17,11 +17,10 @@
 **le `main.py` est le fichier à éxécuter ***
 ### src
 1. `__init.py__`: marque `src` comme package Python
-2. `main.py` : Fichier principale à éxécuter
-3. `Lecture.py`: Lire les fichiers
-4. `Ecriture.py` : Écrire dans des fichiers
-5. `Traitement.py` : Prendre des infos et redonner d'autres infos en fonction de celle-ci
-6. `Interaction.py` : Intéraction avec l'utilisateur(ceci peut être faite par le main pour commencer)
+2. `Lecture.py`: Lire les fichiers
+3. `Ecriture.py` : Écrire dans des fichiers
+4. `Traitement.py` : Prendre des infos et redonner d'autres infos en fonction de celle-ci
+5. `Interaction.py` : Intéraction avec l'utilisateur(ceci peut être faite par le main pour commencer)
 ### assets
 Fichier d'entrées
 ### data
@@ -29,6 +28,7 @@ Fichier de sortie générées par le programme
 ### Autres
 - Markdowns(`README.md` et `PLAN.md`)
 - `.gitignore` pour éviter de commiter les `__pycache__`
+- `main.py` : Fichier principale à éxécuter
 ---
 ## Distribution des taches
 
