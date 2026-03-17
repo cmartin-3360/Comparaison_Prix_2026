@@ -22,3 +22,8 @@ class Lecture:
     def kara():
         lecture = open( "walmart_prices.csv ")
         print(lecture.read())
+
+# lecture de chaque contenue du fichier csv.
+with open("walmart_prices.cssv") as ficher:
+    for ligne in ficher:
+        print(ligne.strip())
