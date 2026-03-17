@@ -1,38 +1,22 @@
 class Traitement:
     @staticmethod
-    def compare_products(A, B, C):
-        if A == B == C:
-            return "Les trois produits sont équivalents en prix"
-        elif A > B > C:
-            return "Produit A > Produit B > Produit C"
-        elif A < B < C:
-            return "Produit A < Produit B < Produit C"
-        elif B > A > C:
-            return "Produit B > Produit A > Produit C"
-        elif B < A < C:
-            return "Produit B < Produit A < Produit C"
-        elif C > A > B:
-            return "Produit C > Produit A > Produit B"
-        elif A < C < B:
-            return "Produit A < Produit C < Produit B"
-        elif C > B > A:
-            return "Produit C > Produit B > Produit A"
-        elif C == A > B :
-            return " Produit A = Produit C > Produit B"
-        elif C == B > A :
-            return " Produit B = Produit C > Produit A"
-        elif A == B > C :   
-            return " Produit A = Produit B > Produit C" 
+    def plus_bas_prix(a, b):
+        if a > b:
+            return b
+        elif a < b:
+            return a
         else:
-            return "aewghsdjgfhgktrysgdvcbngjuytfd"
+            return a
         
-
-"""
-    print ("Comparaison des prix de trois produits:")
-
-    result = compare_products(
-            float(input("Prix de A: ")),
-            float(input("Prix de B: ")),
-            float(input("Prix de C: ")))
-    print(result)
-"""
+    @staticmethod
+    def creer_list(list):
+        if not list:
+            raise ValueError("La liste ne peut pas être vide.")
+        
+        minimum = list[0]
+        for e in list:
+            minimum = Traitement.plus_bas_prix(minimum, e)
+        return minimum
+    @staticmethod
+    def trier(list):
+        return sorted(list)

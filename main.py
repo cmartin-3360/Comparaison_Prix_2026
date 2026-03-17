@@ -2,7 +2,8 @@ from src.Ecriture import Ecriture
 #from src.Lecture import Lecture 
 from src.Traitement import Traitement 
 
-info = Traitement.compare_products(40, 40.2, 8)
-Ecriture.ecriture_Fichier(info)
-Ecriture.ecriture_par_dessus_fichier(info)
+info = Traitement.creer_list((40, 40.2, 8,))
+print("Le produit le plus petit est : ", info)
+Ecriture.ecriture_Fichier(f"Le produit le plus petit est : {info}")
+Ecriture.ecriture_par_dessus_fichier(f"Le produit le plus petit est : {info}")
 
