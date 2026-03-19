@@ -9,7 +9,7 @@ class Lecture:
     """
     def lecture_dict(nom_fichier):
         walmart = {} #dictionnaire
-        grand_tuple = []
+        grand_tuple = [] #liste
         with open(nom_fichier) as fichier:
             #lignes = fichier.readlines()
             i = 0
@@ -27,8 +27,7 @@ class Lecture:
         return walmart
 
               
-            
-             
+
      
     
 
