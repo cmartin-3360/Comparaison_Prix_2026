@@ -30,15 +30,8 @@ class Lecture:
        }
         liste_article.apppend(liste_walmart)
         print(liste_walmart)
-
+        nom_fichier.close
   
-
-
-
-
-
-
-
 
 
 
