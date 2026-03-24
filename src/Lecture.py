@@ -14,10 +14,8 @@ class Lecture:
      
      with open(nom_fichier, "r") as fichier :
       next(fichier)
-     fichier = nom_fichier.readline()
+      fichier = nom_fichier.readline()
        
-    
-
      liste_walmart = []
      for ligne in liste_walmart:
         ligne = ligne.strip()
