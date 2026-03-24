@@ -2,10 +2,13 @@ from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
 from src.Traitement import Traitement 
 
+nom_fichier = "assets/walmart_prices.csv"
+
 info = Traitement.creer_list((40, 40.2, 8,))
-print("Le produit le plus petit est : ", info )
-dictionnaire = Lecture.lecture_fichier("assets/walmart_prices.csv")
+dictionnaire = Lecture.lecture_fichier(nom_fichier)
 info = str(dictionnaire)
-Ecriture.ecriture_Fichier(f"Le produit le plus petit est : {info}")
-Ecriture.ecriture_par_dessus_fichier(f"Le produit le plus petit est : {f"{info}"}")
+Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
+
+info_excel = Lecture.lire_xlsx()
+Ecriture.ecriture_Fichier(str(info_excel))
 
