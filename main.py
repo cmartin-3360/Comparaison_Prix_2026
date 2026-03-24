@@ -2,7 +2,7 @@ from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
 from src.Traitement import Traitement 
 
-nom_fichier = "assets/walmart_price.csv"
+nom_fichier = "assets/walmart_prices.csv"
 
 info = Traitement.creer_list((40, 40.2, 8,))
 dictionnaire = Lecture.lecture_fichier(nom_fichier)
