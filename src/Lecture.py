@@ -3,7 +3,7 @@ import pandas as pd
 ##import xlsx
 #interaction, os, popup, interagir avec lusager, demander noms fichiers a traiter et emplacement a mettre les fichiers creer
 class Lecture:
-
+    """
     def x():
         nom_ficher = "walmart_prices.csv"
 
@@ -27,9 +27,32 @@ class Lecture:
         with open("walmart_prices.cssv") as ficher:
             for ligne in ficher:
                 print(ligne.strip())
+    """
 
+    """
+    Entrées: Aucune ensemoment
+    Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
+    But: Lire un fichier excel et retourner de l'information pertinente pour traiter
+    """
     @staticmethod
     def lire_xlsx():
+        nomFichier = "assets/Costco_Product_Catalog.xlsx"
+        item_prix = {}
+        with pd.ExcelFile(nomFichier) as excel:
+            """
+            print(excel_reading.columns) #Index(['Item', 'Category', 'Price'], dtype='str')
+            print(excel_reading.axes) # [RangeIndex(start=0, stop=99, step=1), Index(['Item', 'Category', 'Price'], dtype='str')]
+            print(excel_reading.columns[0]) # Item
+            amount_of_columns = excel_reading.columns.size
+            print(excel_reading.columns[amount_of_columns -1])
+            """
+            excel_reading = pd.read_excel(excel)
+            
+            for group in excel_reading.values:
+                item_prix[group[0]] =group[2]
+        return item_prix
+
+
         with open("assets/Costco_Product_Catalog.xlsx") as excel:
             return excel.read()
 
