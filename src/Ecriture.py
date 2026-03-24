@@ -33,6 +33,7 @@ class Ecriture:
         fichier = Ecriture.__emplacement_fichier("ecriture.txt")
         with open(fichier, "a") as fichier:
             fichier.write(info)
+            fichier.write("\n")
 
     """
     Entrées: info
@@ -44,4 +45,5 @@ class Ecriture:
         fichier = Ecriture.__emplacement_fichier("deux.txt")
         with open(fichier, "w") as fichier:
             fichier.write(info)
+            fichier.write("\n")
 

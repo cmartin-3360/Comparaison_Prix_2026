@@ -9,9 +9,11 @@ Donne la comparaison sous un certain format désirer, avec la possiblité d'imag
 ## Comment Effectuer
 1. Installer Python
 2. Installer VS Code
-3. Ouvrir le projet dans VS code
-4. Exécute main.py
-5. Suivez les instructions jusqu'à l'obtention du résultat
+3. Dans le terminal de VS code exécuter la commande: pip install openpyxl
+4. Dans le terminal de VS code exécuter la commande: pip install pandas
+5. Ouvrir le projet dans VS code
+6. Exécute main.py
+7. Suivez les instructions jusqu'à l'obtention du résultat
 
 ---
 ## Auteurs
