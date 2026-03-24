@@ -1,4 +1,4 @@
-#import csv
+import csv
 #import xlsx
 #interaction, os, popup, interagir avec lusager, demander noms fichiers a traiter et emplacement a mettre les fichiers creer
 class Lecture:
@@ -14,38 +14,19 @@ class Lecture:
      
      with open(nom_fichier, "r") as fichier :
       next(fichier)
-      fichier = nom_fichier.readline()
+      lignes = fichier.readlines()
        
      liste_walmart = []
-     for ligne in liste_walmart:
-        ligne = ligne.strip()
-        liste = ligne.split(",")
-        liste_article = {
-          "item" : liste[0],
-          "categories": liste[1],
-          "prix" : liste[2]
+     for ligne in lignes: 
+         liste = ligne.strip().split(",")
+         liste_article = {
+           liste[0],
+           liste[1],
+           liste[2]
+         }
+         liste_walmart.append(liste_article)
+     return liste_walmart
 
-       }
-        liste_article.apppend(liste_walmart)
-        print(liste_walmart)
-        nom_fichier.close
-  
-
-
-
-"""
-    def lecture_dict(nom_fichier):
-      walmart = {}
-
-      with open(nom_fichier) as fichier:
-        next(fichier)  # Ignore la première ligne
-
-        for ligne in fichier:
-            desirer = ligne.strip().split(",")
-            walmart[desirer[0]] = desirer[2]
-
-      return walmart
-              """
 
      
     
