@@ -8,4 +8,5 @@ dictionnaire = Lecture.lecture_fichier("assets/walmart_prices.csv")
 info = str(dictionnaire)
 Ecriture.ecriture_Fichier(f"Le produit le plus petit est : {info}")
 Ecriture.ecriture_par_dessus_fichier(f"Le produit le plus petit est : {f"{info}"}")
+Ecriture.ecriture_Fichier(Lecture.lire_xlsx())
 

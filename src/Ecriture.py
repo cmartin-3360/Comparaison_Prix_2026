@@ -33,7 +33,7 @@ class Ecriture:
         fichier = Ecriture.__emplacement_fichier("ecriture.txt")
         with open(fichier, "a") as fichier:
             fichier.write(info)
-            fichier.write("\n") # saut de ligne
+            fichier.write("\n")
 
     """
     Entrées: info
