@@ -1,5 +1,5 @@
 import pandas as pd
-#interaction, os, popup, interagir avec lusager, demander noms fichiers a traiter et emplacement a mettre les fichiers creer
+
 class Lecture:
     """
     Entrées: Aucune ensemoment
