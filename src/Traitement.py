@@ -1,4 +1,8 @@
+
 class Traitement:
+    """
+    les entr/es sont(a,b )
+    """
     @staticmethod
     def plus_bas_prix(a, b):
         if a > b:
@@ -7,6 +11,10 @@ class Traitement:
             return a
         else:
             return a
+    def article_rechercher():
+        if substring in mainstring:
+            print (f"mainstring " contains "substring")
+
         
     @staticmethod
     def creer_list(list):
