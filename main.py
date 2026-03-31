@@ -16,5 +16,5 @@ dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 info_temp = str(dictionnaires[0])
 
 ### Ecriture ###
-Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {info_temp}")
+Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {info_temp}") # ecrit dans deux.txt
 

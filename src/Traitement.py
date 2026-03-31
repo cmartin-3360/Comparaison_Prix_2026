@@ -27,4 +27,4 @@ def traitement():
     liste_dictionnaire = []
     for article in liste_article:
         article = article.strip().split()
-       if liste_article
+        #if liste_article
