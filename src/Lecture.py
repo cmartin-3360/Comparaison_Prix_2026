@@ -24,10 +24,12 @@ class Lecture:
             for group in excel_reading.values:
                 item_prix[group[0]] =group[2]
         return item_prix
+  
+  
 
     """
     Entrées: le nom du fichier à lire
-    Sorties: une liste dans lequel le fichier sera stocker les items(string), catégories(string) et le prix(float).
+    Sorties: une liste dans lequel le fichier sera stocker les items(string), et le prix(float).
     But: lire un fichier CSV et retourner les informations pour le traiter.
     """
     @staticmethod
@@ -36,13 +38,9 @@ class Lecture:
 
             next(fichier)# skip la prémière ligne du fichier csv
             lignes = fichier.readlines()# lit tout et retourne une liste où chaque élément est une ligne.
-            liste_walmart = []# liste dans laquelle les articles seront stocké
+            liste_item_prix = {}# liste dans laquelle les articles seront stocké
             for ligne in lignes: 
-                liste = ligne.strip().split(",")# enleve les espace et separe par des virgules
-                liste_article = { 
-                liste[0], liste[1],  liste[2]
-                }# dictionnaire avec les valeur 
-                liste_walmart.append(liste_article)# ajout dictionnaire {liste_article} dans liste [liste_walmart]
-        return liste_walmart 
+                liste_item_prix[ligne[0]] =ligne[2]
+        return liste_item_prix 
 
 
