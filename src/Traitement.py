@@ -20,3 +20,11 @@ class Traitement:
     @staticmethod
     def trier(list):
         return sorted(list)
+
+def traitement():
+    fichier = open("kara.csv", "r")
+    liste_article = fichier.readline()
+    liste_dictionnaire = []
+    for article in liste_article:
+        article = article.strip().split()
+       if liste_article
