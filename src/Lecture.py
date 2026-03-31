@@ -34,15 +34,13 @@ class Lecture:
         with open(nom_fichier, "r") as fichier :
             next(fichier)
             lignes = fichier.readlines()
-            liste_walmart = []
+            dict_walmart = {}
             for ligne in lignes: 
                 liste = ligne.strip().split(",")
-                liste_article = {
-                liste[0],
-                liste[1],
-                liste[2]
-                }
-                liste_walmart.append(liste_article)
-        return liste_walmart 
+                item = liste[0]
+                price = float(liste[2].replace(',', ''))
+                dict_walmart[item] = price
+        return dict_walmart 
 
 
+    

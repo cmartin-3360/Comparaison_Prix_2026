@@ -1,7 +1,10 @@
 
+import pandas
+
+
 class Traitement:
     """
-    les entr/es sont(a,b )
+    les entrees sont(a,b )
     """
     @staticmethod
     def plus_bas_prix(a, b):
@@ -11,9 +14,10 @@ class Traitement:
             return a
         else:
             return a
-    def article_rechercher():
+    @staticmethod
+    def article_rechercher(mainstring, substring):
         if substring in mainstring:
-            print (f"mainstring " contains "substring")
+            print (f"'{mainstring}' contains '{substring}'")
 
         
     @staticmethod
@@ -28,3 +32,25 @@ class Traitement:
     @staticmethod
     def trier(list):
         return sorted(list)
+    
+def traiter(csv_dict, excel_dict, search_term):
+    matching_items = {}
+    for item, price in csv_dict.items():
+        if search_term.lower() in item.lower():
+            matching_items[item] = price
+    for item, price in excel_dict.items():
+        if search_term.lower() in item.lower():
+            matching_items[item] = price
+
+    if not matching_items:
+        print("No matching products found.")
+        return None, None
+
+    cheapest_item = min(matching_items, key=matching_items.get)
+    cheapest_price = matching_items[cheapest_item]
+    
+    print(f"The cheapest matching product is: '{cheapest_item}' at ${cheapest_price:.2f}")
+    return cheapest_item, cheapest_price
+
+    
+
