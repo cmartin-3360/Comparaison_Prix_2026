@@ -2,13 +2,19 @@ from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
 from src.Traitement import Traitement 
 
-nom_fichier = "assets/walmart_prices.csv"
+### Interaction Utilisateur ###
+nom_fichier_un = "assets/walmart_prices.csv"
+nom_fichier_deux = "assets/Costco_Product_Catalog.xlsx"
 
-info = Traitement.creer_list((40, 40.2, 8,))
-dictionnaire = Lecture.lecture_fichier(nom_fichier)
-info = str(dictionnaire)
-Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
+### Lecture ###
+dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 
-info_excel = Lecture.lire_xlsx()
-Ecriture.ecriture_Fichier(str(info_excel))
+### Traitement ###
+#info = Traitement.creer_list((40, 40.2, 8,))
+#informations = Traitement.traiter(dictionnaires)
+#informations = str(informations) #securite
+info_temp = str(dictionnaires[0])
+
+### Ecriture ###
+Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {info_temp}")
 

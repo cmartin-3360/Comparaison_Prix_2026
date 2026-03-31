@@ -1,28 +1,19 @@
 import os
 class Ecriture:
-    #pass
-    """
-    Pourrais avoir besoin:
-    Entrées: info(String)
-    Sorties: Aucune
-    But: Initialiser un objet écriture
-    def __init__(self, info):
-        self.info = info
-    """
-
     """
     Entrées: nom_fichier, sous le format nom.extension
     Sorties: String, qui représente le nom complet de l'emplacement du fichier à utiliser
     But: Identifier l'emplacement complet d'un fichier voulant être créer, et créer un dossier "data" si n'existe pas déjà à l'endroit indiquer
     """
     @staticmethod
-    def __emplacement_fichier(nom_fichier): # methode static et "priver"
+    def __emplacement_fichier(nom_fichier): # Méthode static et "privée"
         emplacement_actuel = os.path.dirname(os.path.abspath(__file__))
         emplacement_projet = os.path.dirname(emplacement_actuel)
         emplacement_data = os.path.join(emplacement_projet, "data")
         os.makedirs(emplacement_data, exist_ok=True)
         return os.path.join(emplacement_data, nom_fichier)
 
+    #TODO: Supprimer(16-27) si reste un code mort
     """
     Entrées: info
     Sorties: Aucune
