@@ -16,6 +16,9 @@ Donne la comparaison sous un certain format désirer, avec la possiblité d'imag
 7. Suivez les instructions jusqu'à l'obtention du résultat
 
 ---
+## Tête attendu pour les fichiers
+
+---
 ## Auteurs
 
 - Cassey Martin
