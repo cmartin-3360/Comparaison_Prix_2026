@@ -1,6 +1,6 @@
 from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
-from src.Traitement import Traitement 
+from src.Traitement import Traitement, traiter
 
 nom_fichier = "assets/walmart_prices.csv"
 
@@ -9,6 +9,10 @@ dictionnaire = Lecture.lecture_fichier(nom_fichier)
 info = str(dictionnaire)
 Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
 
-info_excel = Lecture.lire_xlsx()
+info_excel = Lecture.lire_xlsx() 
+info_csv = Lecture.lecture_fichier(nom_fichier)
+search_term = input("Enter the product name to search for: ")
+traiter (info_csv, info_excel, search_term)
 Ecriture.ecriture_Fichier(str(info_excel))
+
 

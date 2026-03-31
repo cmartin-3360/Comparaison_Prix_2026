@@ -38,6 +38,7 @@ class Lecture:
     """
     @staticmethod
     def lecture_fichier(nom_fichier) :
+<<<<<<< HEAD
         liste_item_prix = {}# liste dans laquelle les articles seront stocké
         try:
             with open(nom_fichier, "r") as fichier :# Ouverture et lecture du fichier csv 
@@ -52,3 +53,18 @@ class Lecture:
         else:
             print("Lecture réussie avec succèe")
         return liste_item_prix 
+=======
+        with open(nom_fichier, "r") as fichier :
+            next(fichier)
+            lignes = fichier.readlines()
+            dict_walmart = {}
+            for ligne in lignes: 
+                liste = ligne.strip().split(",")
+                item = liste[0]
+                price = float(liste[2].replace(',', ''))
+                dict_walmart[item] = price
+        return dict_walmart 
+
+
+    
+>>>>>>> Ahmed
