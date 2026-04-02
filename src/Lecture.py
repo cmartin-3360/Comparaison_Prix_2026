@@ -32,13 +32,12 @@ class Lecture:
   
 
     """
-    Entrées: le nom du fichier à lire
-    Sorties: une liste dans lequel le fichier sera stocker les items(string), et le prix(float).
+    Entrées: le nom d’un fichier csv contenant les données à lire.
+    Sorties: un dictionnaire contenant les items(string) comme clé et le prix(float) comme valeur.
     But: lire un fichier CSV et retourner les informations pour le traiter.
     """
-    @staticmethod
-    def lecture_fichier(nom_fichier) :
-<<<<<<< HEAD
+    @staticmethod # lecture_fichier(nom_fichier):
+    def lecture_fichier(nom_fichier):
         liste_item_prix = {}# liste dans laquelle les articles seront stocké
         try:
             with open(nom_fichier, "r") as fichier :# Ouverture et lecture du fichier csv 
@@ -50,21 +49,4 @@ class Lecture:
             
         except FileNotFoundError :
           print(f"Erreur : Le fichier {nom_fichier} est introuvable.")
-        else:
-            print("Lecture réussie avec succèe")
-        return liste_item_prix 
-=======
-        with open(nom_fichier, "r") as fichier :
-            next(fichier)
-            lignes = fichier.readlines()
-            dict_walmart = {}
-            for ligne in lignes: 
-                liste = ligne.strip().split(",")
-                item = liste[0]
-                price = float(liste[2].replace(',', ''))
-                dict_walmart[item] = price
-        return dict_walmart 
-
-
-    
->>>>>>> Ahmed
+        return liste_item_prix # retourne la liste des items et prix du fichier csv.
