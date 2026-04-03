@@ -1,20 +1,18 @@
 from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
-from src.Traitement import Traitement 
+from src.Traitement import Traitement, traiter
 
-### Interaction Utilisateur ###
-nom_fichier_un = "assets/walmart_prices.csv"
-nom_fichier_deux = "assets/Costco_Product_Catalog.xlsx"
+nom_fichier = "assets/walmart_prices.csv"
+nomFichier = "assets/Costco_Product_Catalog.xlsx"
+info = Traitement.creer_list((40, 40.2, 8,))
+dictionnaire = Lecture.lire_csv(nom_fichier)
+info = str(dictionnaire)
+Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
 
-### Lecture ###
-dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
+info_excel = Lecture.lire_xlsx(nomFichier) 
+info_csv = Lecture.lire_csv(nom_fichier)
+search_term = input("Enter the product name to search for: ")
+traiter (info_csv, info_excel, search_term)
+Ecriture.ecriture_Fichier(str(info_excel))
 
-### Traitement ###
-#info = Traitement.creer_list((40, 40.2, 8,))
-#informations = Traitement.traiter(dictionnaires)
-#informations = str(informations) #securite
-info_temp = str(dictionnaires[0])
-
-### Ecriture ###
-Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {info_temp}") # ecrit dans deux.txt
 
