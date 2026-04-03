@@ -3,15 +3,14 @@ from src.Lecture import Lecture
 from src.Traitement import Traitement, traiter
 
 nom_fichier = "assets/walmart_prices.csv"
-nomFichier = "assets/cosco_product_catolog.xlsx"
-
+nomFichier = "assets/cosco_product_catalog.xlsx"
 info = Traitement.creer_list((40, 40.2, 8,))
-dictionnaire = Lecture.lecture_fichier(nom_fichier)
+dictionnaire = Lecture.lire_csv(nom_fichier)
 info = str(dictionnaire)
 Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
 
-info_excel = Lecture.lire_xlsx() 
-info_csv = Lecture.lecture_fichier(nom_fichier)
+info_excel = Lecture.lire_xlsx(nomFichier) 
+info_csv = Lecture.lire_csv(nom_fichier)
 search_term = input("Enter the product name to search for: ")
 traiter (info_csv, info_excel, search_term)
 Ecriture.ecriture_Fichier(str(info_excel))
