@@ -3,6 +3,7 @@ from src.Lecture import Lecture
 from src.Traitement import Traitement, traiter
 
 nom_fichier = "assets/walmart_prices.csv"
+nomFichier = "assets/cosco_product_catolog.xlsx"
 
 info = Traitement.creer_list((40, 40.2, 8,))
 dictionnaire = Lecture.lecture_fichier(nom_fichier)
