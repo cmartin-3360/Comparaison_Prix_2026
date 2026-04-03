@@ -7,7 +7,6 @@ class Lecture:
     But: Lire un fichier excel et retourner de l'information pertinente pour traiter
     """
     @staticmethod
-<<<<<<< HEAD
     def lire_xlsx():
         nomFichier = "assets/Costco_Product_Catalog.xlsx"
         item_prix = {}# créeation d'un dictionnaire item_prix vide
@@ -27,32 +26,6 @@ class Lecture:
                     
         except OSError:
             print(f"Erreur : Le fichier {nomFichier} est introuvable.")
-=======
-    def lire(nom_fichier_un, nom_fichier_deux):
-        dictionnaire_un = Lecture.lire_excel_csv_autre(nom_fichier_un)
-        dictionnaire_deux = Lecture.lire_excel_csv_autre(nom_fichier_deux)
-        while not dictionnaire_un:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_un}, veuillez le retapez:")
-            dictionnaire_un = Lecture.lire_excel_csv_autre(nom_fichier)
-        while not dictionnaire_deux:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_deux}, veuillez le retapez:")
-            dictionnaire_deux = Lecture.lire_excel_csv_autre(nom_fichier)
-        dictionnaires = (dictionnaire_un, dictionnaire_deux)
-        return dictionnaires
-
-    
-    @staticmethod
-    def lire_excel_csv_autre(nom_fichier): # Méthode static et "privée"
-        """
-    Entrées: nom_fichier
-    Sorties: Dictionnaire contenant l'information du fichier sous forme "item":prix
-    But: Lire un fichier en fonction de son type avec son nom
-        """
-        if ".xlsx" in nom_fichier:
-            return Lecture.lire_xlsx(nom_fichier)
-        elif ".csv" in nom_fichier:
-            return Lecture.lire_csv(nom_fichier)
->>>>>>> nom_branch
         else:
             print("Lecture réussie avec succèe")
         return item_prix
