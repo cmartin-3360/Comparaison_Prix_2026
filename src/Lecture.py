@@ -8,35 +8,35 @@ class Lecture:
     """
     @staticmethod
     def lire(nom_fichier_un, nom_fichier_deux):
-        dictionnaire_un = Lecture.__lire_excel_csv_autre(nom_fichier_un)
-        dictionnaire_deux = Lecture.__lire_excel_csv_autre(nom_fichier_deux)
+        dictionnaire_un = Lecture.lire_excel_csv_autre(nom_fichier_un)
+        dictionnaire_deux = Lecture.lire_excel_csv_autre(nom_fichier_deux)
         while not dictionnaire_un:
             nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_un}, veuillez le retapez:")
-            dictionnaire_un = Lecture.__lire_excel_csv_autre(nom_fichier)
+            dictionnaire_un = Lecture.lire_excel_csv_autre(nom_fichier)
         while not dictionnaire_deux:
             nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_deux}, veuillez le retapez:")
-            dictionnaire_deux = Lecture.__lire_excel_csv_autre(nom_fichier)
+            dictionnaire_deux = Lecture.lire_excel_csv_autre(nom_fichier)
         dictionnaires = (dictionnaire_un, dictionnaire_deux)
         return dictionnaires
 
     
     @staticmethod
-    def __lire_excel_csv_autre(nom_fichier): # Méthode static et "privée"
+    def lire_excel_csv_autre(nom_fichier): # Méthode static et "privée"
         """
     Entrées: nom_fichier
     Sorties: Dictionnaire contenant l'information du fichier sous forme "item":prix
     But: Lire un fichier en fonction de son type avec son nom
         """
         if ".xlsx" in nom_fichier:
-            return Lecture.__lire_xlsx(nom_fichier)
+            return Lecture.lire_xlsx(nom_fichier)
         elif ".csv" in nom_fichier:
-            return Lecture.__lire_csv(nom_fichier)
+            return Lecture.lire_csv(nom_fichier)
         else:
             return {} # retourne un dictionnaire vide si le type de fichier n'est pas compatible avec notre programme
 
     
     @staticmethod
-    def __lire_xlsx(nom_fichier): # Méthode static et "privée"
+    def lire_xlsx(nom_fichier): # Méthode static et "privée"
      """
     Entrées: nom_fichier
     Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
