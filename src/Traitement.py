@@ -32,7 +32,15 @@ class Traitement:
     @staticmethod
     def trier(list):
         return sorted(list)
-    
+    @staticmethod
+    def item_valide(item, price):
+        if not isinstance(item, str):
+            raise TypeError("L'élément doit être une chaîne de caractères.")
+        if not isinstance(price, (int, float)):
+            raise TypeError("Le prix doit être un nombre.")
+        if price < 0:
+            raise ValueError("Le prix ne peut pas être négatif.")
+
 def traiter(csv_dict, excel_dict, search_term):
     matching_items = {}
     for item, price in csv_dict.items():
@@ -51,6 +59,8 @@ def traiter(csv_dict, excel_dict, search_term):
     
     print(f"The cheapest matching product is: '{cheapest_item}' at ${cheapest_price:.2f}")
     return cheapest_item, cheapest_price
+
+
 
     
 
