@@ -5,3 +5,4 @@ class InteractionEnvironment:
         # linux: Example output on Linux: '/home/username'
         # Example output on Windows: 'C:\\Users\\username'
         home_dir = os.path.expanduser('~')
+        return home_dir
