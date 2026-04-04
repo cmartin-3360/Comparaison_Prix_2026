@@ -1,20 +1,29 @@
 from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
-from src.Traitement import Traitement, traiter
+from src.Traitement import Traitement 
+from src.Interaction import Interaction
 
-nom_fichier = "assets/walmart_prices.csv"
-nomFichier = "assets/Costco_Product_Catalog.xlsx"
+### Interaction Utilisateur ###
+nom_fichier_un = Interaction.interagir_lecture("premier")
+nom_fichier_deux = Interaction.interagir_lecture("deuxieme")
 
-info = Traitement.creer_list((40, 40.2, 8,))
-dictionnaire = Lecture.lire_csv(nom_fichier)
-info = str(dictionnaire)
-Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {f"{info}"}")
+emplacement = Interaction.interagir_ecriture()
 
+### Lecture ###
+dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 
-info_excel = Lecture.lire_xlsx(nomFichier) 
-info_csv = Lecture.lire_csv(nom_fichier)
+### Traitement ###
+#informations = Traitement.traiter(dictionnaires)
+#informations = str(informations) #securite
 search_term = input("Enter the product name to search for: ")
-traiter (info_csv, info_excel, search_term)
-Ecriture.ecriture_Fichier(str(info_excel))
+#informations = Traitement.traiter(dictionnaires[0], dictionnaires[1], search_term)
+info_temp = str(dictionnaires[1])
+
+
+### Ecriture ###
+Ecriture.ecrire(f"Les produits sont : {info_temp}", emplacement) # ecrit dans deux.txt
+
+print("="*30 + "Fin du programme" + "="*30)
+
 
 

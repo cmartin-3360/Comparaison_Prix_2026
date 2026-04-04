@@ -10,14 +10,8 @@ class Lecture:
     """
     @staticmethod
     def lire(nom_fichier_un, nom_fichier_deux):
-        dictionnaire_un = Lecture.lire_xlsx(nom_fichier_un)
-        dictionnaire_deux = Lecture.lire_csv(nom_fichier_deux)
-        while not dictionnaire_un:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_un}, veuillez le retapez:")
-            dictionnaire_un = Lecture.lire_xlsx(nom_fichier)
-        while not dictionnaire_deux:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_deux}, veuillez le retapez:")
-            dictionnaire_deux = Lecture.lire_csv(nom_fichier)
+        dictionnaire_un = Lecture.__lire_xlsx_csv_autre(nom_fichier_un)
+        dictionnaire_deux = Lecture.__lire_xlsx_csv_autre(nom_fichier_deux)
         dictionnaires = (dictionnaire_un, dictionnaire_deux)
         return dictionnaires
 
@@ -27,12 +21,12 @@ class Lecture:
     But: Lire un fichier en fonction de son type avec son nom
     """
     @staticmethod
-    def lire_xlsx_csv(nom_fichier): # Méthode static et "privée"
+    def __lire_xlsx_csv_autre(nom_fichier): # Méthode static et "privée"
         if ".xlsx" in nom_fichier:
-            return Lecture.lire_xlsx(nom_fichier)
+            return Lecture.__lire_xlsx(nom_fichier)
         elif ".csv" in nom_fichier:
-            return Lecture.lire_csv(nom_fichier)
-        else:
+            return Lecture.__lire_csv(nom_fichier)
+        else: # erreur gérer dans interaction, mis au cas ou
             return {} # retourne un dictionnaire vide si le type de fichier n'est pas compatible avec notre programme
         
     """
@@ -41,7 +35,7 @@ class Lecture:
     But: Lire un fichier excel et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire
     """
     @staticmethod
-    def lire_xlsx(nomFichier):
+    def __lire_xlsx(nomFichier):
         """
         Lit un fichier Excel et retourne un dictionnaire des prix des articles. 
         """
@@ -57,15 +51,14 @@ class Lecture:
             print(f"Erreur de lecture du fichier : {nomFichier}") 
             print(f"Détails de l'erreur : {e}")
         return item_prix
-    
- 
+
     """
     Entrées: nom_fichier
     Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
     But: Lire un fichier CSV et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire.
     """
     @staticmethod
-    def lire_csv(nom_fichier): 
+    def __lire_csv(nom_fichier): 
         dict_item_prix = {}
         try:
             with open(nom_fichier, 'r') as fichier:
