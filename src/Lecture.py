@@ -10,8 +10,8 @@ class Lecture:
     """
     @staticmethod
     def lire(nom_fichier_un, nom_fichier_deux):
-        dictionnaire_un = Lecture.__lire_excel_csv_autre(nom_fichier_un)
-        dictionnaire_deux = Lecture.__lire_excel_csv_autre(nom_fichier_deux)
+        dictionnaire_un = Lecture.__lire_xlsx_csv_autre(nom_fichier_un)
+        dictionnaire_deux = Lecture.__lire_xlsx_csv_autre(nom_fichier_deux)
         dictionnaires = (dictionnaire_un, dictionnaire_deux)
         return dictionnaires
 
@@ -21,9 +21,9 @@ class Lecture:
     But: Lire un fichier en fonction de son type avec son nom
     """
     @staticmethod
-    def lire_xlsx_csv(nom_fichier): # Méthode static et "privée"
+    def __lire_xlsx_csv_autre(nom_fichier): # Méthode static et "privée"
         if ".xlsx" in nom_fichier:
-            return Lecture.lire_xlsx(nom_fichier)
+            return Lecture.__lire_xlsx(nom_fichier)
         elif ".csv" in nom_fichier:
             return Lecture.__lire_csv(nom_fichier)
         else: # erreur gérer dans interaction, mis au cas ou
@@ -35,7 +35,7 @@ class Lecture:
     But: Lire un fichier excel et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire
     """
     @staticmethod
-    def lire_xlsx(nomFichier):
+    def __lire_xlsx(nomFichier):
         """
         Lit un fichier Excel et retourne un dictionnaire des prix des articles. 
         """
@@ -58,7 +58,7 @@ class Lecture:
     But: Lire un fichier CSV et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire.
     """
     @staticmethod
-    def lire_csv(nom_fichier): 
+    def __lire_csv(nom_fichier): 
         dict_item_prix = {}
         try:
             with open(nom_fichier, 'r') as fichier:

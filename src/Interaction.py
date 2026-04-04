@@ -72,7 +72,7 @@ class Interaction:
                     message = "="*60 + "\n"
                     message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
                     message += "\n" + "Avec le sélecteur, vous pouvez changez le type de dossier possible entre CSV et Excel"
-                    message += "\n" + "Selectionner le nom du dossier et appuyer sur open"
+                    message += "\n" + "Selectionner le nom du dossier et appuyer sur Select folder"
                     print(message)
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
                     nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): "))
