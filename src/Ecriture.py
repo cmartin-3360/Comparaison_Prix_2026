@@ -1,5 +1,6 @@
 import os
 class Ecriture:
+    #TODO: Supprimer(3-27) si reste un code mort
     """
     Entrées: nom_fichier, sous le format nom.extension
     Sorties: String, qui représente le nom complet de l'emplacement du fichier à utiliser
@@ -20,9 +21,9 @@ class Ecriture:
     But: Écrire à la fin du fichier ce qui correspond à la varaible info à l'emplacement fichier
     """
     @staticmethod
-    def ecriture_Fichier(info):
-        fichier = Ecriture.__emplacement_fichier("ecriture.txt")
-        with open(fichier, "a") as fichier:
+    def ecriture_Fichier(info, emplacement):
+        #fichier = Ecriture.__emplacement_fichier("ecriture.txt")
+        with open(emplacement, "a") as fichier:
             fichier.write(info)
             fichier.write("\n")
 
@@ -32,9 +33,9 @@ class Ecriture:
     But: Écrire par-dessus le fichier ce qui correspond à la varaible info à l'emplacement fichier
     """
     @staticmethod
-    def ecriture_par_dessus_fichier(info):
-        fichier = Ecriture.__emplacement_fichier("deux.txt")
-        with open(fichier, "w") as fichier:
+    def ecriture_par_dessus_fichier(info, emplacement):
+        #fichier = Ecriture.__emplacement_fichier("deux.txt")
+        with open(emplacement, "w") as fichier:
             fichier.write(info)
             fichier.write("\n")
 
