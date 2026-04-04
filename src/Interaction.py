@@ -6,7 +6,6 @@ class Interaction:
     tkt_root = None
     # TODO: Implémenter un cue qui fait sortir de chacune des while loop via terminal pour eviter les boucles infinies
     # TODO: Implémenter des try catchs
-    # TODO: Dumper terminal
     # TODO: Repenser la structure de ce fichier(pourrais avoir un seule interagir en vrai qui passe de lecture a ecriture)
     """
     Entrées: premier_deuxieme
@@ -17,9 +16,9 @@ class Interaction:
     def interagir_lecture(premier_deuxieme):
         type_usage = str("")
         if premier_deuxieme == "premier":
-            type_usage += "première lecture"
+            type_usage += "la première lecture"
         elif premier_deuxieme == "deuxieme":
-            type_usage += "deuxième lecture"
+            type_usage += "la deuxième lecture"
         else:
             type_usage += "lecture"
 
@@ -27,23 +26,22 @@ class Interaction:
 
         count = 0
         emplacement = ""
-        while not Interaction.fichier_exist(emplacement):
+        while not os.path.isfile(emplacement):
             if count > 0:
                 print("Il semble y avoir eu un problème: Veuillez réessayer") # TODO: Déterminer si besoin de try-catch et les implémenters si nécessaire
             elif count > 20:
                 break # sortir boucle apres 20 essaies si emplacement encore
             count += 1
             match etat:
-                case 1: # Interface graphique
+                case 1: # Ajustable
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
-                case 2: # Terminal
-                    emplacement_donner = str(input(Interaction.__chercher_fichier_os()))
-                    emplacement = os.path.expanduser('~') + emplacement_donner
-                case 3: # Par defaut
+                case 2: # Démontrable
+                    
                     if premier_deuxieme == "premier":
-                        return "assets/walmart_prices.csv"
+                        emplacement = "assets/walmart_prices.csv"
                     else: # Normalement deuxieme, mais veut avoir un par defaut defaut
-                        return "assets/Costco_Product_Catalog.xlsx"
+                        emplacement = "assets/Costco_Product_Catalog.xlsx"
+                    print(f"Le programme va utiliser le fichier par défaut dans l'emplacement du projet: {emplacement}")
                 case _:
                     return "invalide" # NOTE: Pourrait etre utiliser pour revenir/sortir
         return emplacement
@@ -56,29 +54,24 @@ class Interaction:
     @staticmethod
     def interagir_ecriture():
         #États terminal, gui et default
-        etat = Interaction.__selectionner_etat("écriture")
+        etat = Interaction.__selectionner_etat("l'écriture")
         count = 0
         emplacement = ""
-        while not Interaction.dossier_exist(os.path.dirname(emplacement)):
+        while not Interaction.__dossier_exist(os.path.dirname(emplacement)):
             if count > 0:
                 print("Il semble y avoir eu un problème: Veuillez réessayer") # TODO: Déterminer si besoin de try-catch et les implémenters si nécessaire
             elif count > 20:
                 break # sortir boucle apres 20 essaies si emplacement encore
             count += 1
             match etat:
-                case 1: # Interface graphique
+                case 1: # Ajustable
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
-                    nom_fichier = str(input("Entrez le nom souhaitez au fichier qui aura l'analyse(sans .txt): ")) + ".txt"
+                    nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): ")) + ".txt"
                     emplacement = os.path.join(emplacement_dossier, nom_fichier)
                     os.makedirs(emplacement_dossier, exist_ok=True) # Créer le dossier si n'existe pas déjà
-                case 2: # Terminal
-                    emplacement_personel = os.path.expanduser('~') 
-                    nom_fichier = str(input("Entrez le nom souhaitez au fichier(Ensuite, vous entreriez le dossier d'enregistrement): "))
-                    nom_emplacement = str(input(f"Compléter l'emplacement souhaité pour le fichier(dossier):{emplacement_personel}"))
-                    emplacement = Interaction.__creation_fichier_os(emplacement_personel, nom_emplacement, nom_fichier)
-                case 3: # Par defaut
-                    nom_fichier = str(input("Entrez le nom souhaitez au fichier du fichier qui sera enregistrer dans /data:"))
-                    emplacement = Interaction.__creation_fichier_default(nom_fichier)
+                case 2: # Démontrable
+                    print("Le fichier d'analyse sera créé dans le dossier 'data' du projet avec le nom 'demo.txt'")
+                    emplacement = Interaction.__creation_fichier_default("demo")
                 case _:
                     return "invalide" # NOTE: Pourrait etre utiliser pour revenir/sortir
         return emplacement
@@ -119,8 +112,6 @@ class Interaction:
                 return True
             case 2:
                 return True
-            case 3:
-                return True
             case __:
                 return False
     """
@@ -133,18 +124,15 @@ class Interaction:
         message = ""
         formattage = "=" * 60
         saut_ligne = "\n"
-        mise_en_contexte = "Vous pouvez procéder dans ses trois mode différents:"
-        etat_un = "1: Inscrire le chemin par INTERFACE GRAPHIQUE"
-        etat_deux = "2: Inscrire le chemin par TERMINAL"
-        etat_trois = "3: Le chemin sera donner par DÉFAUT"
-        instructions = f"Inscrivez le chiffre(1, 2 ou 3) représentant le mode voulant être utilisé pour la {type_usage}:"
-        contenu_message = (mise_en_contexte, etat_un, etat_deux, etat_trois, instructions)
+        mise_en_contexte = "Vous pouvez procéder dans ses deux mode différents:"
+        etat_un = "1. AJUSTABLE: Possibilité de suivre d'autres instructions du terminal pour personaliser l'expérience"
+        etat_deux = "2: DÉMONTRABLE: Voir ce que le programme peut faire avec les fichiers par défaut"
+        instructions = f"Inscrivez le mode voulant être utilisé, soit 1 soit 2, pour {type_usage}:"
+        contenu_message = (mise_en_contexte, etat_un, etat_deux, instructions)
         message += formattage
         for ligne in contenu_message:
             message += saut_ligne + ligne
-        
-        etat = int(input(message))
-        
+        etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
         while not Interaction.__etat_est_valide(etat):
             print("="*60 + "\n" + "Votre mode est invalide assurez vous d'inscrire 1, 2 ou 3" + "\n")
             etat = int(input(message)) # NOTE: Boucle pourrais etre infinie, mais pas mal simple davoir un etat valide
@@ -156,19 +144,7 @@ class Interaction:
     But: Valider l'existence du fichier
     """
     @staticmethod
-    def fichier_exist(emplacement_fichier):
-        if os.path.isfile(emplacement_fichier):
-            return True
-        else:
-            return False
-        
-    """
-    Entrées: emplacement_fichier (String)
-    Sorties: boolean(True ou False)
-    But: Valider l'existence du fichier
-    """
-    @staticmethod
-    def dossier_exist(emplacement_fichier):
+    def __dossier_exist(emplacement_fichier):
         if os.path.isdir(emplacement_fichier) and not os.path.isfile(emplacement_fichier):
             return True
         else:
@@ -191,19 +167,6 @@ class Interaction:
 
     """
     Entrées: Aucune
-    Sorties: tkt_root
-    But: Afficher le répertoire personnel de l'utilisateur
-    """
-    @staticmethod
-    def __chercher_fichier_os():
-        # NOTE: adéquat = csv ou excel ainsi que bien formatté, mais planterais pas ici dans ce cas-la 
-        message = ("=" *60) + "\n" + "Veuillez compléter l'emplacement du fichier adéquat(voir readme pour ce qu'adéquat signifie) pour la lecture: "
-        home_dir = os.path.expanduser('~') # linux: '/home/username' et Windows: 'C:\\Users\\username'
-        message += home_dir # C'est voulu de ne pas ajouter un saut de ligne
-        return message
-
-    """
-    Entrées: Aucune
     Sorties: chemin_fichier (String)
     But: Créer un fichier à l'emplacement souhaitée par l'utilisateur pour écrire notre analyse avec tkinter
     """
@@ -215,20 +178,7 @@ class Interaction:
         ) # devra surment utiliser fd.askdirectory()
         Interaction.__detruire_tkt()
         return chemin_fichier
-    
-    """
-    Entrées: nom_emplacement, nom_fichier
-    Sorties: emplacement_finale (String)
-    But: Créer un fichier à l'emplacement souhaitée par l'utilisateur pour écrire notre analyse avec os
-    """
-    @staticmethod
-    def __creation_fichier_os(nom_emplacement, nom_fichier):
-        home_dir = os.path.expanduser('~') # linux: '/home/username' et Windows: 'C:\\Users\\username'
-        emplacement_voulu = os.path.join(home_dir, nom_emplacement)
-        emplacement_finale = os.path.join(emplacement_voulu, f"{nom_fichier}.txt")
-        os.makedirs(emplacement_voulu, exist_ok=True)
-        return emplacement_finale
-    
+
     """
     Entrées: nom_fichier, sous le format nom
     Sorties: String, qui représente le nom complet de l'emplacement du fichier à utiliser
