@@ -6,6 +6,8 @@ class Interaction:
     tkt_root = None
     # TODO: Implémenter un cue qui fait sortir de chacune des while loop via terminal pour eviter les boucles infinies
     # TODO: Implémenter des try catchs
+    # TODO: Dumper terminal
+    # TODO: Repenser la structure de ce fichier(pourrais avoir un seule interagir en vrai qui passe de lecture a ecriture)
     """
     Entrées: premier_deuxieme
     Sorties: chemin(String)
