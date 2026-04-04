@@ -28,14 +28,19 @@ class Ecriture:
             fichier.write("\n")
 
     """
-    Entrées: info
+    Entrées: info, emplacement
     Sorties: Aucune
     But: Écrire par-dessus le fichier ce qui correspond à la varaible info à l'emplacement fichier
     """
     @staticmethod
     def ecriture_par_dessus_fichier(info, emplacement):
-        #fichier = Ecriture.__emplacement_fichier("deux.txt")
-        with open(emplacement, "w") as fichier:
-            fichier.write(info)
-            fichier.write("\n")
+        try:
+            with open(emplacement, "w") as fichier: # w signifie ecrire par dessus fichier
+                fichier.write(info)
+                fichier.write("\n")
+        except PermissionError:
+            print("Erreur pas de permission pour ecrire dans ce fichier") # controle limiter
+        except:
+            print("Erreur inattendu lors de l'écriture, veuillez reporter le problème.")
+
 

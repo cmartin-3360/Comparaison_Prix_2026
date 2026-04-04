@@ -10,12 +10,6 @@ class Lecture:
     def lire(nom_fichier_un, nom_fichier_deux):
         dictionnaire_un = Lecture.__lire_excel_csv_autre(nom_fichier_un)
         dictionnaire_deux = Lecture.__lire_excel_csv_autre(nom_fichier_deux)
-        while not dictionnaire_un:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_un}, veuillez le retapez:")
-            dictionnaire_un = Lecture.__lire_excel_csv_autre(nom_fichier)
-        while not dictionnaire_deux:
-            nom_fichier = input(f"Le nom du fichier est invalide {nom_fichier_deux}, veuillez le retapez:")
-            dictionnaire_deux = Lecture.__lire_excel_csv_autre(nom_fichier)
         dictionnaires = (dictionnaire_un, dictionnaire_deux)
         return dictionnaires
 
@@ -30,7 +24,7 @@ class Lecture:
             return Lecture.__lire_xlsx(nom_fichier)
         elif ".csv" in nom_fichier:
             return Lecture.__lire_csv(nom_fichier)
-        else:
+        else: # erreur gérer dans interaction, mis au cas ou
             return {} # retourne un dictionnaire vide si le type de fichier n'est pas compatible avec notre programme
 
     """

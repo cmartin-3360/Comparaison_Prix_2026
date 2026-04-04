@@ -21,5 +21,7 @@ info_temp = str(dictionnaires[0])
 
 Ecriture.ecriture_par_dessus_fichier(f"Les produits sont : {info_temp}", emplacement) # ecrit dans deux.txt
 
+print("="*30 + "Fin du programme" + "="*30)
+
 
 

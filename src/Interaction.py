@@ -4,9 +4,7 @@ import tkinter.filedialog as fd
 
 class Interaction:
     tkt_root = None
-    # TODO: Implémenter un cue qui fait sortir de chacune des while loop via terminal pour eviter les boucles infinies
-    # TODO: Implémenter des try catchs
-    # TODO: Repenser la structure de ce fichier(pourrais avoir un seule interagir en vrai qui passe de lecture a ecriture)
+
     """
     Entrées: premier_deuxieme
     Sorties: chemin(String)
@@ -28,13 +26,20 @@ class Interaction:
         emplacement = ""
         while not os.path.isfile(emplacement):
             if count > 0:
-                print("Il semble y avoir eu un problème: Veuillez réessayer") # TODO: Déterminer si besoin de try-catch et les implémenters si nécessaire
+                print("Il semble y avoir eu un problème: Veuillez réessayer")
             elif count > 20:
                 break # sortir boucle apres 20 essaies si emplacement encore
             count += 1
             match etat:
                 case 1: # Ajustable
+                    message = "="*60 + "\n"
+                    message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
+                    message += "\n" + "Selectionner le nom du fichier et appuyer sur save"
+                    print(message)
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
+                    if not Interaction.__est_excel_csv(emplacement):
+                        print("Le fichier choisi n'est pas du type excel ou csv, veuillez réessayer")
+                        emplacement = ""
                 case 2: # Démontrable
                     
                     if premier_deuxieme == "premier":
@@ -53,28 +58,48 @@ class Interaction:
     """
     @staticmethod
     def interagir_ecriture():
-        #États terminal, gui et default
         etat = Interaction.__selectionner_etat("l'écriture")
         count = 0
         emplacement = ""
         while not Interaction.__dossier_exist(os.path.dirname(emplacement)):
             if count > 0:
-                print("Il semble y avoir eu un problème: Veuillez réessayer") # TODO: Déterminer si besoin de try-catch et les implémenters si nécessaire
+                print("Il semble y avoir eu un problème: Veuillez réessayer")
             elif count > 20:
                 break # sortir boucle apres 20 essaies si emplacement encore
             count += 1
             match etat:
                 case 1: # Ajustable
+                    message = "="*60 + "\n"
+                    message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
+                    message += "\n" + "Avec le sélecteur, vous pouvez changez le type de dossier possible entre CSV et Excel"
+                    message += "\n" + "Selectionner le nom du dossier et appuyer sur open"
+                    print(message)
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
-                    nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): ")) + ".txt"
-                    emplacement = os.path.join(emplacement_dossier, nom_fichier)
-                    os.makedirs(emplacement_dossier, exist_ok=True) # Créer le dossier si n'existe pas déjà
+                    nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): "))
+                    emplacement = Interaction.__creation_fichier(nom_fichier, emplacement_dossier)
                 case 2: # Démontrable
                     print("Le fichier d'analyse sera créé dans le dossier 'data' du projet avec le nom 'demo.txt'")
-                    emplacement = Interaction.__creation_fichier_default("demo")
+                    emplacement_actuel = os.path.dirname(os.path.abspath(__file__))
+                    emplacement_projet = os.path.dirname(emplacement_actuel)
+                    emplacement_data = os.path.join(emplacement_projet, "data")
+                    emplacement = Interaction.__creation_fichier("demo", emplacement_data)
                 case _:
                     return "invalide" # NOTE: Pourrait etre utiliser pour revenir/sortir
         return emplacement
+
+    """
+    Entrées: emplacement
+    Sorties: boolean(True ou False)
+    But: Déterminer si le type de fichier est valide pour le programme
+    """
+    @staticmethod
+    def __est_excel_csv(emplacement): # Méthode static et "privée"
+        if ".xlsx" in emplacement:
+            return True
+        elif ".csv" in emplacement:
+            return True
+        else:
+            return False
 
     """
     Entrées: Aucune
@@ -132,9 +157,11 @@ class Interaction:
         message += formattage
         for ligne in contenu_message:
             message += saut_ligne + ligne
+
         etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+
         while not Interaction.__etat_est_valide(etat):
-            print("="*60 + "\n" + "Votre mode est invalide assurez vous d'inscrire 1, 2 ou 3" + "\n")
+            print("="*60 + "\n" + "Votre mode est invalide assurez vous d'inscrire 1 ou 2" + "\n")
             etat = int(input(message)) # NOTE: Boucle pourrais etre infinie, mais pas mal simple davoir un etat valide
         return etat
 
@@ -158,12 +185,12 @@ class Interaction:
     @staticmethod
     def __chercher_fichier_tkinter(premier_deuxieme):
         Interaction.__commencer_tkt()
-        chemin_fichier = fd.askopenfilename(
+        emplacement_fichier = fd.askopenfilename(
             title= f"Sélectionner le {premier_deuxieme} fichier voulant être comparer",
             filetypes= [("CSV", "*.csv"), ("Excel", "*.xlsx")]
         )
         Interaction.__detruire_tkt()
-        return chemin_fichier
+        return emplacement_fichier
 
     """
     Entrées: Aucune
@@ -180,14 +207,16 @@ class Interaction:
         return chemin_fichier
 
     """
-    Entrées: nom_fichier, sous le format nom
+    Entrées: nom_fichier(sous le format nom), emplacement_voulu
     Sorties: String, qui représente le nom complet de l'emplacement du fichier à utiliser
     But: Créer nom_fichier dans l'emplacement par défaut étant le "data" du projet
     """
     @staticmethod
-    def __creation_fichier_default(nom_fichier): # Méthode static et "privée"
-        emplacement_actuel = os.path.dirname(os.path.abspath(__file__))
-        emplacement_projet = os.path.dirname(emplacement_actuel)
-        emplacement_data = os.path.join(emplacement_projet, "data")
-        os.makedirs(emplacement_data, exist_ok=True) # threw a permission error
-        return os.path.join(emplacement_data, f"{nom_fichier}.txt")
+    def __creation_fichier(nom_fichier, emplacement_dossier): # Méthode static et "privée"
+        try:
+            os.makedirs(emplacement_dossier, exist_ok=True) # Créer le dossier si n'existe pas déjà
+        except PermissionError:
+            print("Aucune permission pour écrire dans ce fichier")
+        except:
+            print("Une erreur inattendu lors de l'intéraction s'est produite, veuillez reporter le problème.")
+        return os.path.join(emplacement_dossier, f"{nom_fichier}.txt") # Le dir du fichier qui se fait reellement creer dans ECRITURE
