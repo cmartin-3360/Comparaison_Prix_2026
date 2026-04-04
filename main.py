@@ -8,6 +8,7 @@ nom_fichier_un = Interaction.interagir_lecture("premier")
 nom_fichier_deux = Interaction.interagir_lecture("deuxieme")
 
 emplacement = Interaction.interagir_ecriture()
+
 ### Lecture ###
 dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 

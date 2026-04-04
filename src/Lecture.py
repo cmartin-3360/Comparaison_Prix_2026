@@ -51,8 +51,7 @@ class Lecture:
             print(f"Erreur de lecture du fichier : {nomFichier}") 
             print(f"Détails de l'erreur : {e}")
         return item_prix
-    
- 
+
     """
     Entrées: nom_fichier
     Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
