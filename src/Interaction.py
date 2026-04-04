@@ -5,6 +5,7 @@ import tkinter.filedialog as fd
 class Interaction:
     tkt_root = None
     # TODO: Implémenter un cue qui fait sortir de chacune des while loop via terminal pour eviter les boucles infinies
+    # TODO: Implémenter des try catchs
     """
     Entrées: premier_deuxieme
     Sorties: chemin(String)
@@ -56,7 +57,7 @@ class Interaction:
         etat = Interaction.__selectionner_etat("écriture")
         count = 0
         emplacement = ""
-        while not Interaction.fichier_exist(emplacement):
+        while not Interaction.dossier_exist(os.path.dirname(emplacement)):
             if count > 0:
                 print("Il semble y avoir eu un problème: Veuillez réessayer") # TODO: Déterminer si besoin de try-catch et les implémenters si nécessaire
             elif count > 20:
@@ -64,12 +65,15 @@ class Interaction:
             count += 1
             match etat:
                 case 1: # Interface graphique
-                    emplacement = Interaction.__creation_fichier_tkinter()
+                    emplacement_dossier = Interaction.__creation_dossier_tkinter()
+                    nom_fichier = str(input("Entrez le nom souhaitez au fichier qui aura l'analyse(sans .txt): ")) + ".txt"
+                    emplacement = os.path.join(emplacement_dossier, nom_fichier)
+                    os.makedirs(emplacement_dossier, exist_ok=True) # Créer le dossier si n'existe pas déjà
                 case 2: # Terminal
                     emplacement_personel = os.path.expanduser('~') 
                     nom_fichier = str(input("Entrez le nom souhaitez au fichier(Ensuite, vous entreriez le dossier d'enregistrement): "))
                     nom_emplacement = str(input(f"Compléter l'emplacement souhaité pour le fichier(dossier):{emplacement_personel}"))
-                    emplacement = Interaction.__creation_fichier_os(emplacement_personel + nom_emplacement, nom_fichier)
+                    emplacement = Interaction.__creation_fichier_os(emplacement_personel, nom_emplacement, nom_fichier)
                 case 3: # Par defaut
                     nom_fichier = str(input("Entrez le nom souhaitez au fichier du fichier qui sera enregistrer dans /data:"))
                     emplacement = Interaction.__creation_fichier_default(nom_fichier)
@@ -155,6 +159,18 @@ class Interaction:
             return True
         else:
             return False
+        
+    """
+    Entrées: emplacement_fichier (String)
+    Sorties: boolean(True ou False)
+    But: Valider l'existence du fichier
+    """
+    @staticmethod
+    def dossier_exist(emplacement_fichier):
+        if os.path.isdir(emplacement_fichier) and not os.path.isfile(emplacement_fichier):
+            return True
+        else:
+            return False
 
     """
     Entrées: premier_deuxieme
@@ -190,11 +206,10 @@ class Interaction:
     But: Créer un fichier à l'emplacement souhaitée par l'utilisateur pour écrire notre analyse avec tkinter
     """
     @staticmethod
-    def __creation_fichier_tkinter():
+    def __creation_dossier_tkinter():
         Interaction.__commencer_tkt()
-        chemin_fichier = fd.asksaveasfilename(
-            title= f"Sélectionner l'emplacement et inscriver le nom du fichier de sortie",
-            filetypes= [("Text", "*.txt")]
+        chemin_fichier = fd.askdirectory(
+            title= f"Sélectionner l'emplacement du dossier pour l'écriture"
         ) # devra surment utiliser fd.askdirectory()
         Interaction.__detruire_tkt()
         return chemin_fichier
@@ -222,5 +237,5 @@ class Interaction:
         emplacement_actuel = os.path.dirname(os.path.abspath(__file__))
         emplacement_projet = os.path.dirname(emplacement_actuel)
         emplacement_data = os.path.join(emplacement_projet, "data")
-        os.makedirs(emplacement_data, exist_ok=True)
+        os.makedirs(emplacement_data, exist_ok=True) # threw a permission error
         return os.path.join(emplacement_data, f"{nom_fichier}.txt")
