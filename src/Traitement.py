@@ -1,106 +1,56 @@
 
-import pandas
-
-
 class Traitement:
-    """
-    les entrees sont(a,b )
-    """
     @staticmethod
-    def plus_bas_prix(a, b):
-        if a > b:
-            return b
-        elif a < b:
-            return a
-        else:
-            return a
+    def _plus_petit(chiffre_a, chiffre_b):
+        if not isinstance(chiffre_a, (int, float)) or not isinstance(chiffre_b, (int, float)):
+            raise TypeError("Les deux paramètres doivent être des nombres.")
+        return chiffre_a if chiffre_a <= chiffre_b else chiffre_b
+
     @staticmethod
-    def article_rechercher(mainstring, substring):
-        if substring in mainstring:
-            print (f"'{mainstring}' contains '{substring}'")
+    def _item_valide(dictionnaire, mot_chercher):
+        if not isinstance(dictionnaire, dict):
+            raise TypeError("Le premier argument doit être un dictionnaire.")
+        if not isinstance(mot_chercher, str):
+            raise TypeError("Le terme de recherche doit être une chaîne de caractères.")
 
-        
+        recherche = mot_chercher.lower().strip()
+        prix_trouves = [prix for item, prix in dictionnaire.items() if recherche in str(item).lower()]
+
+        if not prix_trouves:
+            return -1
+        return min(prix_trouves)
+
     @staticmethod
-    def creer_list(list):
-        if not list:
-            raise ValueError("La liste ne peut pas être vide.")
-        
-        minimum = list[0]
-        for e in list:
-            minimum = Traitement.plus_bas_prix(minimum, e)
-        return minimum
-    @staticmethod
-    def trier(list):
-        return sorted(list)
-    @staticmethod
-    def item_valide(item, price):
-        if not isinstance(item, str):
-            raise TypeError("L'élément doit être une chaîne de caractères.")
-        if not isinstance(price, (int, float)):
-            raise TypeError("Le prix doit être un nombre.")
-        if price < 0:
-            raise ValueError("Le prix ne peut pas être négatif.")
+    def _dire(dictionnaires, mot_chercher):
+        if not isinstance(dictionnaires, (list, tuple)):
+            raise TypeError("Le premier argument doit être une liste ou un tuple de dictionnaires.")
 
-def traiter(csv_dict, excel_dict, search_term):
-    matching_items = {}
-    for item, price in csv_dict.items():
-        if search_term.lower() in item.lower():
-            matching_items[item] = price
-    for item, price in excel_dict.items():
-        if search_term.lower() in item.lower():
-            matching_items[item] = price
-
-    if not matching_items:
-        print("No matching products found.")
-        return None, None
-
-    cheapest_item = min(matching_items, key=matching_items.get)
-    cheapest_price = matching_items[cheapest_item]
-    
-    print(f"The cheapest matching product is: '{cheapest_item}' at ${cheapest_price:.2f}")
-    return cheapest_item, cheapest_price
-
-
-
-    
-
-class traitement:
-   
-   
-    @staticmethod
-    def lire_excel(a, b):
-        return a if a <= b else b
-    @staticmethod
-    def item_varible(dict, search_term):
-        for item, price in dict.items():
-            if search_term.lower() in item.lower():
-                return item, price
-        return -1
-    @staticmethod
-    def dire(dict, search_term):
-        prix = []
-        for d in dict:
-            prix = traitement.item_varible(d, search_term)
+        prix_minimum = None
+        for dictionnaire in dictionnaires:
+            prix = Traitement._item_valide(dictionnaire, mot_chercher)
             if prix != -1:
-               prix.append(prix[1])
+                prix_minimum = prix if prix_minimum is None else Traitement._plus_petit(prix_minimum, prix)
 
-        if not prix:
-            return f"No matching products found for '{search_term}'."
-        
-        min_price = prix[0]
-        for p in prix:
-            min_price = traitement.plus_bas_prix(min_price, p) 
-        return f"Le prix le plus bas pour '{search_term}' est {min_price}$"
-    
+        if prix_minimum is None:
+            return f"Aucun produit trouvé pour '{mot_chercher}'."
+        return f"Le prix le plus bas pour '{mot_chercher}' est {prix_minimum:.2f}$"
+
     @staticmethod
-    def traiter(dict):
-        resultat = {}
+    def traiter(dictionnaires):
+        if not isinstance(dictionnaires, (list, tuple)):
+            raise TypeError("Le paramètre doit être un tuple ou une liste de dictionnaires.")
 
+        resultat = []
         while True:
-            search_term = input("Enter the product name to search (or 'exit' to quit): ")
-            if search_term.lower() == 'exit':
+            mot_chercher = input("Entrez le nom du produit à rechercher (ou 'exit' pour terminer) : ").strip()
+            if mot_chercher.lower() == 'exit':
                 break
-            
-            result = traitement.dire(dict, search_term)
-            resultat.append(result) 
+            if not mot_chercher:
+                print("Veuillez entrer un terme de recherche valide.")
+                continue
+
+            texte = Traitement._dire(dictionnaires, mot_chercher)
+            print(texte)
+            resultat.append(texte)
+
         return resultat

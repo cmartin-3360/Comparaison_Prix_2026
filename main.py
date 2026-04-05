@@ -1,7 +1,7 @@
 from src.Ecriture import Ecriture
-from src.Lecture import Lecture 
+from src.Lecture import Lecture
 from src.Interaction import Interaction
-from src.Traitement import Traitement, traiter 
+from src.Traitement import Traitement
 
 ### Interaction Utilisateur ###
 nom_fichier_un = Interaction.interagir_lecture("premier")
@@ -13,15 +13,13 @@ emplacement = Interaction.interagir_ecriture()
 dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 
 ### Traitement ###
-informations = Traitement.traiter(dictionnaires)
-informations = str(informations) #securite
-search_term = input("Enter the product name to search for: ")
-informations = Traitement.traiter(dictionnaires[0], dictionnaires[1], search_term)
-info_temp = str(dictionnaires[1])
-
+resultats = Traitement.traiter(dictionnaires)
+texte_sortie = "\n".join(resultats) if resultats else "Aucun résultat de recherche."
+print("\nRésultats de la recherche :")
+print(texte_sortie)
 
 ### Ecriture ###
-Ecriture.ecrire(f"Les produits sont : {info_temp}", emplacement) # ecrit dans deux.txt
+Ecriture.ecrire(texte_sortie, emplacement)
 
 print("="*30 + "Fin du programme" + "="*30)
 
