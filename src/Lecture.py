@@ -1,93 +1,75 @@
 import pandas as pd
 
+
+
 class Lecture:
     """
-    Lecture de fichiers excel et CSV
+    Entrées: nom_fichier_un et nom_fichier_deux
+    Sorties: Un tuple contenant deux dictionnaires représentant les informations des deux fichiers
+    But: Retourner les deux dictionnaires voulant être traiter tout en gérant les fichiers incompatible pour notre programme
     """
-
     @staticmethod
-    def lire_xlsx():
+    def lire(nom_fichier_un, nom_fichier_deux):
+        dictionnaire_un = Lecture.__lire_xlsx_csv_autre(nom_fichier_un)
+        dictionnaire_deux = Lecture.__lire_xlsx_csv_autre(nom_fichier_deux)
+        dictionnaires = (dictionnaire_un, dictionnaire_deux)
+        return dictionnaires
+
+    """
+    Entrées: nom_fichier
+    Sorties: Dictionnaire contenant l'information du fichier sous forme "item":prix
+    But: Lire un fichier en fonction de son type avec son nom
+    """
+    @staticmethod
+    def __lire_xlsx_csv_autre(nom_fichier): # Méthode static et "privée"
+        if ".xlsx" in nom_fichier:
+            return Lecture.__lire_xlsx(nom_fichier)
+        elif ".csv" in nom_fichier:
+            return Lecture.__lire_csv(nom_fichier)
+        else: # erreur gérer dans interaction, mis au cas ou
+            return {} # retourne un dictionnaire vide si le type de fichier n'est pas compatible avec notre programme
+        
+    """
+    Entrées: nom_fichier
+    Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
+    But: Lire un fichier excel et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire
+    """
+    @staticmethod
+    def __lire_xlsx(nomFichier):
         """
-        Entrées: Aucune (utilise un chemin fixe)
-        Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
-        But: Lire un fichier excel et retourner de l'information pertinente pour traiter
+        Lit un fichier Excel et retourne un dictionnaire des prix des articles. 
         """
-        nomFichier = "assets/Costco_Product_Catalog.xlsx"
         item_prix = {}
         try:
             with pd.ExcelFile(nomFichier) as excel:
-                excel_reading = pd.read_excel(excel)
-                for group in excel_reading.values:
+                excel_lire = pd.read_excel(excel)
+                for group in excel_lire.values:
                     item_prix[group[0]] = group[2]
         except OSError:
-            print(f"Erreur : Le fichier {nomFichier} est introuvable.")
-        else:
-            print("Lecture réussie avec succès")
+            print(f"Le fichier {nomFichier} n'a pas été trouvé.")
+        except Exception as e:  
+            print(f"Erreur de lecture du fichier : {nomFichier}") 
+            print(f"Détails de l'erreur : {e}")
         return item_prix
 
+    """
+    Entrées: nom_fichier
+    Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
+    But: Lire un fichier CSV et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire.
+    """
     @staticmethod
-    def lecture_fichier(nom_fichier):
-        """
-        Entrées: le nom du fichier à lire
-        Sorties: un dictionnaire contenant les items(string) et leur prix(float).
-        But: lire un fichier CSV et retourner les informations pour le traiter.
-        """
+    def __lire_csv(nom_fichier): 
         dict_item_prix = {}
         try:
-            with open(nom_fichier, "r") as fichier:
+            with open(nom_fichier, 'r') as fichier:
                 next(fichier)
                 lignes = fichier.readlines()
                 for ligne in lignes:
                     valeurs = ligne.strip().split(",")
-                    item = valeurs[0]
-                    price = float(valeurs[2].replace(',', ''))
-                    dict_item_prix[item] = price
+                    dict_item_prix[valeurs[0]] = float(valeurs[2])
         except FileNotFoundError:
-            print(f"Erreur : Le fichier {nom_fichier} est introuvable.")
+            print(f"Le fichier {nom_fichier} n'a pas été trouvé.")
         except Exception as e:
-            print(f"Erreur de lecture du fichier: {nom_fichier}")
-            print("Erreur :", e)
+            print(f"Erreur de lecture du fichier : {nom_fichier}")
+            print(f"Détails de l'erreur : {e}")
         return dict_item_prix
-
-    @staticmethod
-    def lire_xlsx_param(nom_fichier):
-        """
-        Entrées: nom_fichier
-        Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
-        But: Lire un fichier excel et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire
-        """
-        item_prix = {}
-        try:
-            with pd.ExcelFile(nom_fichier) as excel:
-                lecture_excel = pd.read_excel(excel)
-                for group in lecture_excel.values:
-                    item_prix[group[0]] = group[2]
-        except OSError:
-            print(f"Erreur : Le fichier {nom_fichier} est introuvable.")
-        except Exception as e:
-            print(f"Erreur de lecture du fichier: {nom_fichier}")
-            print("Erreur :", e)
-        return item_prix
-
-    @staticmethod
-    def lire_csv(nom_fichier):
-        """
-        Entrées: nom_fichier
-        Sorties: Un dictionnaire contenant des items(String) comme clé et un prix(float) comme valeur
-        But: Lire un fichier CSV et retourner de l'information pertinente pour traiter sous forme d'un dictionnaire.
-        """
-        item_prix = {}
-        try:
-            with open(nom_fichier, "r") as fichier:
-                next(fichier)
-                lignes = fichier.readlines()
-                for ligne in lignes:
-                    valeurs = ligne.strip().split(",")
-                    item_prix[valeurs[0]] = valeurs[2]
-        except FileNotFoundError:
-            print(f"Erreur : Le fichier {nom_fichier} est introuvable.")
-        except Exception as e:
-            print(f"Erreur de lecture du fichier: {nom_fichier}")
-            print("Erreur :", e)
-        return item_prix
-
