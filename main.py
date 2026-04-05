@@ -1,7 +1,7 @@
 from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
-from src.Traitement import Traitement 
 from src.Interaction import Interaction
+from src.Traitement import Traitement, traiter 
 
 ### Interaction Utilisateur ###
 nom_fichier_un = Interaction.interagir_lecture("premier")
@@ -13,10 +13,10 @@ emplacement = Interaction.interagir_ecriture()
 dictionnaires = Lecture.lire(nom_fichier_un, nom_fichier_deux)
 
 ### Traitement ###
-#informations = Traitement.traiter(dictionnaires)
-#informations = str(informations) #securite
+informations = Traitement.traiter(dictionnaires)
+informations = str(informations) #securite
 search_term = input("Enter the product name to search for: ")
-#informations = Traitement.traiter(dictionnaires[0], dictionnaires[1], search_term)
+informations = Traitement.traiter(dictionnaires[0], dictionnaires[1], search_term)
 info_temp = str(dictionnaires[1])
 
 
