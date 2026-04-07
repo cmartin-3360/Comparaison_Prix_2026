@@ -19,6 +19,18 @@ class Traitement:
         return resultat # Donner un set de String
 
     """
+    Entrées: resultat(set de String)
+    Sorties: resultat (sans charactére spéciaux)
+    But: Nettoyer les résultats de charactére spéciaux pouvant causer des problèmes lors de l'écriture dans le fichier
+    """
+    @staticmethod
+    def __filtrer_resultat(resultat):
+        formattage = "\n" +"="*60 + "\n"
+        final = "Entrez le nom bref du produit voulant être comparer ou sortir avec la clé `q` pour finir le programme et recevoir l'analyse: "
+        message = formattage + aspect + formattage + final
+        return message
+
+    """
     Entrées: aspect (String)
     Sorties: message (String formatté)
     But: Uniformisation des informations présenter à l'utilisateur lors du traitement
