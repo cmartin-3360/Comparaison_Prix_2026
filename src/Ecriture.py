@@ -15,7 +15,7 @@ class Ecriture:
                     fichier.write(f"{ligne} \n")
         except PermissionError:
             print("Erreur pas de permission pour ecrire dans ce fichier") # controle limiter
-        except:
-            print("Erreur inattendu lors de l'écriture, veuillez reporter le problème.")
+        except Exception: # Laisse passer keyboardInterrupt
+            print("Erreur inattendu lors de l'écriture, veuillez reporter ce problème: {e}")
 
 

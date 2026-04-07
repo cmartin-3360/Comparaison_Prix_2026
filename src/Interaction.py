@@ -40,6 +40,8 @@ class Interaction:
                     message += "\n" + "Selectionner le {premier_deuxieme} fichier voulant être comparer et appuyer sur save"
                     print(message)
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
+                    if not emplacement:
+                        raise KeyboardInterrupt # Arreter le programme si annuler
                     if not Interaction.__est_excel_csv(emplacement):
                         print("Le fichier choisi n'est pas du type excel ou csv, veuillez réessayer")
                         emplacement = ""
@@ -78,6 +80,8 @@ class Interaction:
                     message += "\n" + "Selectionner le nom du dossier et appuyer sur Select folder"
                     print(message)
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
+                    if not emplacement_dossier:
+                        raise KeyboardInterrupt # Arreter le programme si annuler
                     nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): "))
                     emplacement = Interaction.__creation_fichier(nom_fichier, emplacement_dossier)
                 case 2: # Démontrable
@@ -161,11 +165,28 @@ class Interaction:
         for ligne in contenu_message:
             message += saut_ligne + ligne
 
-        etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+        etat = None
+        try: 
+            etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+        except Exception:
+            print("Un problème s'est produit, veuillez reessayer")
+            try: 
+                etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+            except Exception:
+                print("Un problème s'est produit, vous allez en mode démontrable")
+                etat = 2
 
         while not Interaction.__etat_est_valide(etat):
             print("="*60 + "\n" + "Votre mode est invalide assurez vous d'inscrire 1 ou 2" + "\n")
-            etat = int(input(message)) # NOTE: Boucle pourrais etre infinie, mais pas mal simple davoir un etat valide
+            try: 
+                etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+            except Exception:
+                print("Un problème s'est produit, veuillez reessayer")
+                try: 
+                    etat = int(input(message)) # Demande à l'utilisateur quel est l'état désirer
+                except Exception:
+                    print("Un problème s'est produit, vous allez en mode démontrable")
+                    etat = 2
         return etat
 
     """
@@ -220,6 +241,6 @@ class Interaction:
             os.makedirs(emplacement_dossier, exist_ok=True) # Créer le dossier si n'existe pas déjà
         except PermissionError:
             print("Aucune permission pour écrire dans ce fichier")
-        except:
+        except Exception:
             print("Une erreur inattendu lors de l'intéraction s'est produite, veuillez reporter le problème.")
         return os.path.join(emplacement_dossier, f"{nom_fichier}.txt") # Le dir du fichier qui se fait reellement creer dans ECRITURE

@@ -73,8 +73,9 @@ class Traitement:
             demande = None
             try:
                 demande = int(input(message))
-            except:
+            except Exception:
                 print("Votre demande est annulée")
+                return None # Annulation de demande
             count = 1
             for item, prix in dictionnaire.items():
                 if demande == count:
