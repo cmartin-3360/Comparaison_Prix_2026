@@ -37,7 +37,7 @@ class Interaction:
                 case 1: # Ajustable
                     message = "="*60 + "\n"
                     message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
-                    message += "\n" + "Selectionner le {premier_deuxieme} fichier voulant être comparer et appuyer sur save"
+                    message += "\n" + f"Selectionner le {premier_deuxieme} fichier voulant être comparer et appuyer sur save"
                     print(message)
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
                     if not emplacement:
