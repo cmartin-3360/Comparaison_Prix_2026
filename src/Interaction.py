@@ -37,6 +37,7 @@ class Interaction:
                 case 1: # Ajustable
                     message = "="*60 + "\n"
                     message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
+                    message += "\n" + "Avec le sélecteur, vous pouvez changez le type de dossier possible entre CSV et Excel"
                     message += "\n" + f"Selectionner le {premier_deuxieme} fichier voulant être comparer et appuyer sur save"
                     print(message)
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
@@ -76,8 +77,7 @@ class Interaction:
                 case 1: # Ajustable
                     message = "="*60 + "\n"
                     message += "Déplacer la fenêtre de VS code et celles en arrières jusqu'à ce que vous voyez l'explorateur de fichier avec une entente spéciale"
-                    message += "\n" + "Avec le sélecteur, vous pouvez changez le type de dossier possible entre CSV et Excel"
-                    message += "\n" + "Selectionner le nom du dossier et appuyer sur Select folder"
+                    message += "\n" + "Selectionner le dossier que vous voulez sauvegarder le fichier d'analyse dedans et appuyer sur Select folder"
                     print(message)
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
                     if not emplacement_dossier:
