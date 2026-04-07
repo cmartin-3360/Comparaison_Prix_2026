@@ -13,7 +13,7 @@ Donne la comparaison sous un fichier texte.
 4. Dans le terminal de VS code exécuter la commande: pip install openpyxl
 5. Dans le terminal de VS code exécuter la commande: pip install pandas
 6. Exécute main.py
-7. Suivez les instructions jusqu'à l'obtention du résultat
+7. Suivez les instructions jusqu'à l'obtention de l'analyse
 
 ---
 ## En tête des fichiers
@@ -28,7 +28,7 @@ Voici un exemple:
  ![Image exemple de l'entête et le début des colonnes attendu pour le csv](assets/exemple_en_tete_csv.png)
 
 ### À prévoir
-Le programme vous demandera l'emplacement souhaité de l'analyse. Ce fichier sera créer pour vous s'il n'existe pas déjà. Il est à noter que s'il existe déjà l'analyse sera écrite par dessus.
+Le programme vous demandera deux fichiers, ils peuvent être autant .xlsx ou .csv. Assurez-vous que l'entête respecte les normes précédantes pour obtenir un résultat adéquat. De plus, le programme vous demandera aussi l'emplacement souhaité de l'analyse. Ce fichier sera créer pour vous s'il n'existe pas déjà. Il est à noter que s'il existe déjà l'analyse sera écrite par dessus.
 
 ---
 ## Auteurs
