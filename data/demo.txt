@@ -1,3 +1,1 @@
-Le prix le plus bas pour 'apple' est 3.08$
-Aucun produit trouvé pour 'pomme'.
-Le prix le plus bas pour 'Onions' est 5.75$
+Le produit du premier fichier: Bananas 1kg est 7.28$ plus économique à 5.17$ que Bananas 1kg à 12.45$ du deuxième fichier 
