@@ -1,3 +1,6 @@
+"""
+    But: Interagir avec l'utilisateur de façon a savoir quelles fichiers veulent être lire et l'emplacement voulu de l'analyse
+"""
 class Traitement:
     """
     Entrées: item_prix_un et item_prix_deux (dictionnaires String: float)
@@ -66,8 +69,12 @@ class Traitement:
             for item, prix in dictionnaire.items():
                 message += f"{count}. {item}: {prix}$\n"
                 count += 1
-            message += "Veuillez inscrire le numéro de l'article souhaité, si le numéro est invalide votre demande sera annulé:"
-            demande = int(input(message))
+            message += "Veuillez inscrire le numéro entier(ex: 1) de l'article souhaité, si le numéro est invalide votre demande sera annulé:"
+            demande = None
+            try:
+                demande = int(input(message))
+            except:
+                print("Votre demande est annulée")
             count = 1
             for item, prix in dictionnaire.items():
                 if demande == count:
@@ -116,8 +123,8 @@ class Traitement:
         item_deux = infos_deux[0]
         prix_deux = infos_deux[1]
         if prix_un > prix_deux:
-            return f"Le produit du deuxième fichier: {item_deux} est {prix_un - prix_deux:.2f}$ plus économique à {prix_deux}$ que {item_un} à {prix_un}$ du premier fichier"
+            return f"Le produit du deuxième fichier: {item_deux} est {prix_deux}$ ce qui est {prix_un - prix_deux:.2f}$ plus économique que le produit du premier fichier, {item_un}, à {prix_un}$"
         elif prix_un < prix_deux:
-            return f"Le produit du premier fichier: {item_un} est {prix_deux - prix_un:.2f}$ plus économique à {prix_un}$ que {item_deux} à {prix_deux}$ du deuxième fichier"
+            return f"Le produit du premier fichier: {item_un} est {prix_un}$ ce qui est {prix_deux - prix_un:.2f}$ plus économique que le produit du deuxième fichier, {item_deux}, à {prix_deux}$"
         else: # Lorsqu'égale
             return f"Les deux produits, soit {item_un} pour le premier fichier et {item_deux} pour le deuxième fichier, ont le même prix de {prix_un}$"
