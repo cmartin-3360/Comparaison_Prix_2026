@@ -10,7 +10,7 @@ class Ecriture:
     @staticmethod
     def ecrire(info, emplacement):
         try:
-            with open(emplacement, "w") as fichier: # w signifie ecrire par dessus fichier
+            with open(emplacement, "w", encoding="utf-8") as fichier: # w signifie ecrire par dessus fichier
                 for ligne in info:
                     fichier.write(f"{ligne} \n")
         except PermissionError:
