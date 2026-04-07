@@ -9,8 +9,8 @@ class Ecriture:
     def ecrire(info, emplacement):
         try:
             with open(emplacement, "w") as fichier: # w signifie ecrire par dessus fichier
-                fichier.write(info)
-                fichier.write("\n")
+                for ligne in info:
+                    fichier.write(f"{ligne} \n")
         except PermissionError:
             print("Erreur pas de permission pour ecrire dans ce fichier") # controle limiter
         except:
