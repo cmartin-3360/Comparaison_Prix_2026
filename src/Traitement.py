@@ -42,11 +42,12 @@ class Traitement:
         informations_deux = Traitement.__item_present(dictionnaire_deux, item_rechercher)
 
         etat_un = Traitement.__etat(informations_un)
-        etat_deux = Traitement.__etat(informations_deux)
+        if etat_un == None: # Abandon de la recherche dès le premier fichier si l'état est invalide
+            return Traitement.__affiche_item_prix(etat_un, "première"), 0 # Abandon de la recherche
 
-        if etat_un == None or etat_deux == None: # Abandon de la recherche
-            message = "="*60+ "\n"
-            message += Traitement.__affiche_item_prix(etat_un, "première")
+        etat_deux = Traitement.__etat(informations_deux)
+        if etat_deux == None: # Abandon de la recherche au deuxième fichier si l'état est invalide
+            message = Traitement.__affiche_item_prix(etat_un, "première")
             message += "\n"
             message += Traitement.__affiche_item_prix(etat_deux, "deuxième")
             return message, 0 # Abandon de la recherche
@@ -74,7 +75,7 @@ class Traitement:
             try:
                 demande = int(input(message))
             except Exception:
-                print("Votre demande est annulée")
+                print("="*60 + "\n Votre demande est annulée")
                 return None # Annulation de demande
             count = 1
             for item, prix in dictionnaire.items():

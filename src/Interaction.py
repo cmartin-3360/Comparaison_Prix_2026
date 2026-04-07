@@ -41,7 +41,7 @@ class Interaction:
                     print(message)
                     emplacement = Interaction.__chercher_fichier_tkinter(premier_deuxieme)
                     if not emplacement:
-                        raise KeyboardInterrupt # Arreter le programme si annuler
+                        raise KeyboardInterrupt # Arreter le programme si annuler(tkinter empêche ctrl+c d'interrompre le programme)
                     if not Interaction.__est_excel_csv(emplacement):
                         print("Le fichier choisi n'est pas du type excel ou csv, veuillez réessayer")
                         emplacement = ""
@@ -81,7 +81,7 @@ class Interaction:
                     print(message)
                     emplacement_dossier = Interaction.__creation_dossier_tkinter()
                     if not emplacement_dossier:
-                        raise KeyboardInterrupt # Arreter le programme si annuler
+                        raise KeyboardInterrupt # Arreter le programme si annuler(tkinter empêche ctrl+c d'interrompre le programme)
                     nom_fichier = str(input("Entrez le nom souhaitez du fichier text comprenant l'analyse(sans .txt): "))
                     emplacement = Interaction.__creation_fichier(nom_fichier, emplacement_dossier)
                 case 2: # Démontrable
