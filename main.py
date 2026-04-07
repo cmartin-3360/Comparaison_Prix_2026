@@ -22,7 +22,7 @@ try:
     Ecriture.ecrire(info, emplacement) # ecrit dans deux.txt
 
     print("="*30 + "Fin du programme" + "="*30)
-except KeyboardInterrupt: # Si ctrl+C
+except KeyboardInterrupt: # Si ctrl+C(interruption par clavier du programme)
     print(" \n ====== Fin du programme =====")
 
 
