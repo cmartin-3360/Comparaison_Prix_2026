@@ -36,15 +36,13 @@ class Lecture:
     """
     @staticmethod
     def __lire_xlsx(nomFichier):
-        """
-        Lit un fichier Excel et retourne un dictionnaire des prix des articles. 
-        """
         item_prix = {}
         try:
             with pd.ExcelFile(nomFichier) as excel:
                 excel_lire = pd.read_excel(excel)
                 for group in excel_lire.values:
-                    item_prix[group[0]] = group[2]
+                    if pd.notna(group[0]) and pd.notna(group[2]):
+                        item_prix[str(group[0])] = float(group[2])
         except OSError:
             print(f"Le fichier {nomFichier} n'a pas été trouvé.")
         except Exception as e:  
@@ -66,7 +64,7 @@ class Lecture:
                 lignes = fichier.readlines()
                 for ligne in lignes:
                     valeurs = ligne.strip().split(",")
-                    dict_item_prix[valeurs[0]] = float(valeurs[2])
+                    dict_item_prix[str(valeurs[0])] = float(valeurs[2])
         except FileNotFoundError:
             print(f"Le fichier {nom_fichier} n'a pas été trouvé.")
         except Exception as e:
