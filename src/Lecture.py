@@ -1,7 +1,7 @@
 import pandas as pd
-
-
-
+"""
+    But: Retourner les informations pertinentes des fichiers sous forme d'un dictionnaire
+"""
 class Lecture:
     """
     Entrées: nom_fichier_un et nom_fichier_deux

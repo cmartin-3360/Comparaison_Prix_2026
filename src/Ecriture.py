@@ -1,4 +1,6 @@
-import os
+"""
+    But: Écrire dans des fichiers en fonction de l'information voulant être écrite et de l'emplacement voulu du fichier
+"""
 class Ecriture:
     """
     Entrées: info, emplacement

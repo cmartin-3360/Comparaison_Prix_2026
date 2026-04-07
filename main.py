@@ -2,7 +2,9 @@ from src.Ecriture import Ecriture
 from src.Lecture import Lecture 
 from src.Traitement import Traitement 
 from src.Interaction import Interaction
-
+"""
+    But: Fichier principal du programme qui utilise les autres classes pour faire le travail demandé par l'utilisateur
+"""
 ### Interaction Utilisateur ###
 nom_fichier_un = Interaction.interagir_lecture("premier")
 nom_fichier_deux = Interaction.interagir_lecture("deuxieme")
